@@ -1,13 +1,14 @@
 #! /usr/bin/env node
-var replace = require('replace-in-file')
+const { readFileSync, writeFileSync } = require('fs');
+const { globSync } = require('tinyglobby');
+var pkg = require('../../package.json');
 
-var pkg = require('../../package.json')
-var options = {
-  files: ['src/**/*.js'],
-  from: /0\.0\.0-development/g,
-  to: pkg.version,
-}
-;(async function() {
+
+for(const file of globSync('src/**/*.js')) {
   // @ts-ignore
-  await replace(options)
-})()
+  const contents = readFileSync(file, 'utf8').replaceAll('0.0.0-development', pkg.version);
+  writeFileSync(file, contents);
+
+}
+
+
