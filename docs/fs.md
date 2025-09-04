@@ -24,7 +24,7 @@ console.log(files)
 ## LightningFS
 
 If you are writing code for the browser, you will need something that emulates the `fs` API.
-While BrowserFS (see next section) has more features, [LightningFS](https://github.com/isomorphic-git/lightning-fs) might very well fit your needs.
+While ZenFS (see next section) has more features, [LightningFS](https://github.com/isomorphic-git/lightning-fs) might very well fit your needs.
 It was designed from scratch for `isomorphic-git` (by the same author) to eek out more performance
 for fewer bytes. As an added bonus it's dead simple to configure.
 
@@ -41,25 +41,33 @@ console.log(files);
 You can configure LightningFS to load files from an HTTP server as well, which makes it easy to prepopulate a browser file system
 with a directory on your server. See the LightningFS documentation for an example of how to do this.
 
-## BrowserFS
+## ZenFS
 
-At the time of writing, the most complete option is [BrowserFS](https://github.com/jvilk/BrowserFS).
+At the time of writing, the most complete option is [ZenFS](https://github.com/zen-fs/core).
 It has a few more steps involved to set up than in Node, as seen below:
 
 ```html
-<script src="https://unpkg.com/browserfs@beta"></script>
+<script type="importmap">
+{
+  "imports": {
+    "@zenfs/core": "https://esm.sh/@zenfs/core",
+    "@zenfs/dom": "https://esm.sh/@zenfs/dom"
+  }
+}
+</script>
 <script src="https://unpkg.com/isomorphic-git"></script>
 <script>
-BrowserFS.configure({ fs: "IndexedDB", options: {} }, function (err) {
-  if (err) return console.log(err);
-  const fs = BrowserFS.BFSRequire("fs");
-  const files = git.listFiles({ fs dir: '/' });
-  console.log(files);
-});
+import { fs, configureSingle } from '@zenfs/core';
+import { IndexedDB } from '@zenfs/dom';
+
+await configureSingle(IndexedDB);
+
+const files = git.listFiles({ fs, dir: '/' });
+console.log(files);
 </script>
 ```
 
-Besides IndexedDB, BrowserFS supports many different backends with different performance characteristics (some backends support sync operations, some only async), as well as different features such as proxying a static file server as a read-only file system, mounting ZIP files as file systems, or overlaying a writeable in-memory filesystem on top of a read-only filesystem.
+Besides IndexedDB, ZenFS supports many different backends with different performance characteristics (all backends support sync operations), as well as different features such as proxying a static file server as a read-only file system, mounting ZIP files as file systems, or overlaying a writeable in-memory filesystem on top of a read-only filesystem.
 You don't need to know all these features, but familiarizing yourself with the different options may be necessary if you hit a storage limit or performance bottleneck in the IndexedDB backend I suggested above.
 
 An [advanced example usage](https://github.com/isomorphic-git/isomorphic-git/blob/53f2e909030adb1c6ae855b14f3a2474ca93ce71/__tests__/__helpers__/FixtureFS.js#L12) is in the old unit tests for isomorphic-git.
