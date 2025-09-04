@@ -104,11 +104,7 @@ export class GitWalkerFs {
         const config = await this._getGitConfig(fs, gitdir)
         const autocrlf = await config.get('core.autocrlf')
         const content = await fs.read(`${dir}/${entry._fullpath}`, { autocrlf })
-        // workaround for a BrowserFS edge case
         entry._actualSize = content.length
-        if (entry._stat && entry._stat.size === -1) {
-          entry._stat.size = entry._actualSize
-        }
         entry._content = new Uint8Array(content)
       }
     }
