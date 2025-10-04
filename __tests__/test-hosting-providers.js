@@ -26,7 +26,9 @@ describe('Hosting Providers', () => {
         fs,
         http,
         gitdir,
-        corsProxy: process.browser ? `http://${localhost}:9999` : undefined,
+        corsProxy: globalThis.__browser
+          ? `http://${localhost}:9999`
+          : undefined,
         remote: 'awscc',
         ref: 'master',
         onAuth: () => ({ username, password }),
@@ -43,7 +45,9 @@ describe('Hosting Providers', () => {
         fs,
         http,
         gitdir,
-        corsProxy: process.browser ? `http://${localhost}:9999` : undefined,
+        corsProxy: globalThis.__browser
+          ? `http://${localhost}:9999`
+          : undefined,
         remote: 'awscc',
         ref: 'master',
         force: true,
@@ -69,7 +73,7 @@ describe('Hosting Providers', () => {
         fs,
         http,
         gitdir,
-        // corsProxy: process.browser ? `http://${localhost}:9999` : undefined,
+        // corsProxy: globalThis.__browser ? `http://${localhost}:9999` : undefined,
         remote: 'azure',
         ref: 'master',
         onAuth: () => ({ username, password }),
@@ -88,7 +92,7 @@ describe('Hosting Providers', () => {
         fs,
         http,
         gitdir,
-        // corsProxy: process.browser ? `http://${localhost}:9999` : undefined,
+        // corsProxy: globalThis.__browser ? `http://${localhost}:9999` : undefined,
         remote: 'azure',
         ref: 'master',
         force: true,
@@ -115,7 +119,9 @@ describe('Hosting Providers', () => {
         fs,
         http,
         gitdir,
-        corsProxy: process.browser ? `http://${localhost}:9999` : undefined,
+        corsProxy: globalThis.__browser
+          ? `http://${localhost}:9999`
+          : undefined,
         remote: 'bitbucket',
         ref: 'master',
         force: true,
@@ -133,7 +139,9 @@ describe('Hosting Providers', () => {
         fs,
         http,
         gitdir,
-        corsProxy: process.browser ? `http://${localhost}:9999` : undefined,
+        corsProxy: globalThis.__browser
+          ? `http://${localhost}:9999`
+          : undefined,
         remote: 'bitbucket',
         ref: 'master',
         onAuth: () => ({ username, password }),
@@ -159,7 +167,9 @@ describe('Hosting Providers', () => {
         fs,
         http,
         gitdir,
-        corsProxy: process.browser ? `http://${localhost}:9999` : undefined,
+        corsProxy: globalThis.__browser
+          ? `http://${localhost}:9999`
+          : undefined,
         remote: 'github',
         ref: 'master',
         onAuth: () => ({ username, password }),
@@ -176,7 +186,9 @@ describe('Hosting Providers', () => {
         fs,
         http,
         gitdir,
-        corsProxy: process.browser ? `http://${localhost}:9999` : undefined,
+        corsProxy: globalThis.__browser
+          ? `http://${localhost}:9999`
+          : undefined,
         remote: 'github',
         ref: 'master',
         force: true,
@@ -203,7 +215,9 @@ describe('Hosting Providers', () => {
         fs,
         http,
         gitdir,
-        corsProxy: process.browser ? `http://${localhost}:9999` : undefined,
+        corsProxy: globalThis.__browser
+          ? `http://${localhost}:9999`
+          : undefined,
         remote: 'gitlab',
         ref: 'master',
         onAuth: () => ({ username, password }),
@@ -220,7 +234,9 @@ describe('Hosting Providers', () => {
         fs,
         http,
         gitdir,
-        corsProxy: process.browser ? `http://${localhost}:9999` : undefined,
+        corsProxy: globalThis.__browser
+          ? `http://${localhost}:9999`
+          : undefined,
         remote: 'gitlab',
         ref: 'master',
         force: true,

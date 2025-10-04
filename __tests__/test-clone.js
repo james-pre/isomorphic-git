@@ -21,7 +21,7 @@ describe('clone', () => {
   // so I'm enabling it.
   // Update: well, it's now slow enough on Edge that it's failing. Which is odd bc
   // it's the New Edge with is Chromium-based.
-  ;(process.browser ? xit : it)(
+  ;(globalThis.__browser ? xit : it)(
     'clone with noTags',
     async () => {
       const { fs, dir, gitdir } = await makeFixture('isomorphic-git')
@@ -34,7 +34,9 @@ describe('clone', () => {
         ref: 'test-branch',
         noTags: true,
         url: 'https://github.com/isomorphic-git/isomorphic-git.git',
-        corsProxy: process.browser ? `http://${localhost}:9999` : undefined,
+        corsProxy: globalThis.__browser
+          ? `http://${localhost}:9999`
+          : undefined,
         noCheckout: true,
       })
       expect(await fs.exists(`${dir}`)).toBe(true)
@@ -68,7 +70,7 @@ describe('clone', () => {
       singleBranch: true,
       noCheckout: true,
       url: 'https://github.com/isomorphic-git/isomorphic-git.git',
-      corsProxy: process.browser ? `http://${localhost}:9999` : undefined,
+      corsProxy: globalThis.__browser ? `http://${localhost}:9999` : undefined,
     })
     expect(await fs.exists(`${dir}`)).toBe(true)
     expect(await fs.exists(`${gitdir}/objects`)).toBe(true)
@@ -89,7 +91,7 @@ describe('clone', () => {
       singleBranch: true,
       ref: 'test-tag',
       url: 'https://github.com/isomorphic-git/isomorphic-git.git',
-      corsProxy: process.browser ? `http://${localhost}:9999` : undefined,
+      corsProxy: globalThis.__browser ? `http://${localhost}:9999` : undefined,
     })
     expect(await fs.exists(`${dir}`)).toBe(true)
     expect(await fs.exists(`${gitdir}/objects`)).toBe(true)
@@ -469,7 +471,7 @@ describe('clone', () => {
       singleBranch: true,
       remote: 'foo',
       url: 'https://github.com/isomorphic-git/isomorphic-git.git',
-      corsProxy: process.browser ? `http://${localhost}:9999` : undefined,
+      corsProxy: globalThis.__browser ? `http://${localhost}:9999` : undefined,
     })
 
     const [merge, remote] = await Promise.all([
@@ -506,7 +508,7 @@ describe('clone', () => {
     ])
   })
 
-  if (typeof process === 'object' && (process.versions || {}).node) {
+  if (!globalThis.__browser && (process.versions || {}).node) {
     it('should allow agent to be used with built-in http plugin for Node.js', async () => {
       const { fs, dir, gitdir } = await makeFixture('isomorphic-git')
       const connectionLog = []

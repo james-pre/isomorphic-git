@@ -54,7 +54,7 @@ describe('getRemoteInfo2', () => {
       `)
     }
   })
-  ;(process.browser ? it : xit)(
+  ;(globalThis.__browser ? it : xit)(
     'detects "dumb" HTTP server responses',
     async () => {
       let error = null

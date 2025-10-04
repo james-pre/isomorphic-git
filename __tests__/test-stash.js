@@ -8,7 +8,7 @@ import { makeFixture } from './__helpers__/FixtureFS.js'
 const makeFixtureStash = async testDir => {
   const fixtureDir = 'test-stash'
   let { fs, dir, gitdir } = await makeFixture(fixtureDir)
-  if (process.browser && testDir) {
+  if (globalThis.__browser && testDir) {
     const targetDir = dir.replace(fixtureDir, `${fixtureDir}-${testDir}`)
     // copy all files from dirName to targetDir
     const files = await fs.readdirDeep(dir)

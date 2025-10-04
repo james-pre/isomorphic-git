@@ -13,3 +13,11 @@ namespace jest {
     toEqual(expected: any, message?: string): R
   }
 }
+
+declare global {
+	const __browser: boolean
+}
+
+declare const globalThis: {
+	__browser: boolean
+}

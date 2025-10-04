@@ -23,7 +23,7 @@ describe('huge repo clone and checkout', () => {
       ref: branchName,
       singleBranch: true,
       url: `https://github.com/isomorphic-git/dummy-huge-repo.git`,
-      corsProxy: process.browser ? `http://${localhost}:9999` : undefined,
+      corsProxy: globalThis.__browser ? `http://${localhost}:9999` : undefined,
       nonBlocking: true,
     })
 

@@ -6,15 +6,15 @@ import {
   InMemory,
 } from '@zenfs/core'
 import { FileSystem } from 'isomorphic-git/internal-apis'
+import index from '../../__fixtures__/index.json' with { type: 'json' }
 
 export async function makeZenFS(dir) {
-  const index = require('../../__fixtures__/index.json')
   await configureSingle({
     backend: CopyOnWrite,
     readable: {
       backend: Fetch,
       index,
-      baseUrl: '/base/__tests__/__fixtures__/',
+      baseUrl: 'http://localhost:9876/base/__tests__/__fixtures__/',
     },
     writable: InMemory,
   })

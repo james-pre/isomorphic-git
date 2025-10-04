@@ -84,7 +84,7 @@ describe('GitPktLine', () => {
     let unhook
     try {
       const output = []
-      if (!process.browser) {
+      if (!globalThis.__browser) {
         const onLog = chunk => output.push(chunk) && undefined
         unhook = hookStream(process.stdout, onLog)
       }

@@ -1,3 +1,4 @@
+import FS from '@isomorphic-git/lightning-fs'
 import { FileSystem } from 'isomorphic-git/internal-apis'
 
 // this is so it works with either Node local tests or Browser WAN tests
@@ -5,7 +6,6 @@ const localhost =
   typeof window === 'undefined' ? 'localhost' : window.location.hostname
 
 export async function makeLightningFS(dir) {
-  const FS = require('@isomorphic-git/lightning-fs')
   const _fs = new FS(`testfs`, {
     wipe: true,
     url: `http://${localhost}:9876/base/__tests__/__fixtures__`,

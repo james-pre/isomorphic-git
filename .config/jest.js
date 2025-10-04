@@ -1,5 +1,8 @@
 export default function commonConfig(outputName) {
   return {
+	globals: {
+		__browser: false
+	},
     modulePathIgnorePatterns: ['<rootDir>/website'],
     testRegex: '/__tests__/(server-only\\.)?test-[^\\/]+\\.js',
     moduleNameMapper: {
